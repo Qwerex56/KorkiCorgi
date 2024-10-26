@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KorkiCorgi", "KorkiCorgi\KorkiCorgi.csproj", "{F6E915FC-C083-4823-B8C4-C89C023AAFCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KorkiCorgi", "KorkiCorgi\KorkiCorgi.csproj", "{84801F17-E8FC-4787-820C-C43AA7DC7653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F6E915FC-C083-4823-B8C4-C89C023AAFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6E915FC-C083-4823-B8C4-C89C023AAFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6E915FC-C083-4823-B8C4-C89C023AAFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6E915FC-C083-4823-B8C4-C89C023AAFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84801F17-E8FC-4787-820C-C43AA7DC7653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84801F17-E8FC-4787-820C-C43AA7DC7653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84801F17-E8FC-4787-820C-C43AA7DC7653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84801F17-E8FC-4787-820C-C43AA7DC7653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
