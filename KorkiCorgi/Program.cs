@@ -1,4 +1,5 @@
 using KorkiCorgi.Components;
+using KorkiCorgi.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddDbContext<CorgiDbContext>(options => options.UseNpgsql(
+    connectionString: "Host=localhost;Port=5432;Username=TestAccount;Password=Pass;Database=TestDb;"));
 
 var app = builder.Build();
 

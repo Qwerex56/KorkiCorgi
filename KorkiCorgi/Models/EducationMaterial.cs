@@ -1,13 +1,17 @@
-﻿namespace KorkiCorgi.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using KorkiCorgi.Models.TypeConfigurations;
+using Microsoft.EntityFrameworkCore;
 
+namespace KorkiCorgi.Models;
+
+[EntityTypeConfiguration(typeof(EducationMaterialEntityTypeConfiguration))]
 public class EducationMaterial {
-    public int Id { get; set; }
+    public int Id { get; init; }
     
-    public PathString PathOnServer { get; set; }
-    public PathString CustomClientPath { get; set; }
+    public string PathOnServer { get; init; }
+    public string CustomClientPath { get; set; }
     
-    public object MaterialType { get; set; }
-    public string[] MaterialTags { get; set; }
+    public ICollection<string> MaterialTags { get; init; }
     
-    public int UserId { get; set; }
+    public int UserId { get; init; }
 }
