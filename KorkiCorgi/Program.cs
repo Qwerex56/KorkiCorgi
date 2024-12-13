@@ -1,4 +1,6 @@
 using KorkiCorgi.Components;
+using KorkiCorgi.Models;
+using KorkiCorgi.Options;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// TODO: Hide that
+var key = builder.Configuration["ConnectionStrings:NpgsqlConnection"];
+
+builder.Services.AddDbContext<CorgiDbContext>(options => options.UseNpgsql(
+    connectionString: key));
 
 var app = builder.Build();
 
