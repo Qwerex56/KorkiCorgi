@@ -11,6 +11,7 @@ public class CorgiDbContext : DbContext {
     public DbSet<EducationMaterial> EducationMaterials { get; set; }
     public DbSet<WeekCalendar> WeekCalendars { get; set; }
     public DbSet<WeekCalendarDayData> WeekCalendarDayData { get; set; }
+    public DbSet<Advert> Adverts { get; set; }
     
     public CorgiDbContext(DbContextOptions<CorgiDbContext> options) : base(options) { }
 
