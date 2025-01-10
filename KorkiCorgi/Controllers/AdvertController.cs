@@ -34,6 +34,18 @@ public class AdvertController : Controller {
 
     [HttpGet(nameof(GetUserAdverts) + "/{userId:int}", Name = nameof(GetUserAdverts))]
     public ActionResult<IEnumerable<Advert>> GetUserAdverts(int userId) {
-        throw new NotImplementedException();
+        return Ok((_advertService.GetAllUserAdverts(userId)));
+    }
+
+    [HttpDelete(nameof(DeleteAdvert) + "/{id:int}", Name = nameof(DeleteAdvert))]
+    public IActionResult DeleteAdvert(int id) {
+        HttpContext.Request.Cookies.TryGetValue("user", out var user);
+        
+        if (user is null) {
+            return BadRequest("You must be logged in.");
+        }
+        
+        var result = _advertService.DeleteAdvert(id);
+        return result ? Ok() : BadRequest();
     }
 }

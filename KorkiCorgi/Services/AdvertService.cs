@@ -36,15 +36,46 @@ public class AdvertService : IAdvertService {
     }
 
     public bool DeleteAdvert(int id) {
-        throw new NotImplementedException();
+        var advert = _context.Adverts.FirstOrDefault(adv => adv.Id == id);
+
+        if (advert is null) {
+            return false;
+        }
+
+        _context.Adverts.Remove(advert);
+        _context.SaveChanges();
+
+        return true;
     }
 
     public async Task<bool> DeleteAdvertAsync(int id) {
         throw new NotImplementedException();
     }
 
-    public bool UpdateAdvert(Advert advert) {
+    public bool CreateAdvert(Advert advert) {
+        if (_context.Adverts.Find(advert.Id) is { } found) {
+            return false;
+        }
+
+        _context.Adverts.Add(advert);
+        _context.SaveChanges();
+
+        return true;
+    }
+
+    public Task<bool> CreateAdvertAsync(Advert advert) {
         throw new NotImplementedException();
+    }
+
+    public bool UpdateAdvert(Advert advert) {
+        if (_context.Adverts.Find(advert.Id) is not { } found) {
+            return false;
+        }
+
+        _context.Adverts.Update(advert);
+        _context.SaveChanges();
+
+        return true;
     }
 
     public async Task<bool> UpdateAdvertAsync(Advert advert) {

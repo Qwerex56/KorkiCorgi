@@ -12,6 +12,9 @@ public interface IAdvertService {
     public bool DeleteAdvert(int id);
     public Task<bool> DeleteAdvertAsync(int id);
 
+    public bool CreateAdvert(Advert advert);
+    public Task<bool> CreateAdvertAsync(Advert advert);
+    
     public bool UpdateAdvert(Advert advert);
     public Task<bool> UpdateAdvertAsync(Advert advert);
 }
