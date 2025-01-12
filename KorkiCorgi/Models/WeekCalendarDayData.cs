@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KorkiCorgi.Models;
 
+//Bez rezerwowania?, Czy gdzieś przeniosłeś?
 [EntityTypeConfiguration(typeof(WeekCalendarDayDataEntityTypeConfiguration))]
 public class WeekCalendarDayData {
     public int Id { get; init; }

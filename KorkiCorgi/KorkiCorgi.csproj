@@ -15,12 +15,20 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
       <PackageReference Include="Swashbuckle" Version="5.6.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.2.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Areas\CalendarController]\Controllers\" />
+      <Folder Include="Areas\CalendarController]\Data\" />
+      <Folder Include="Areas\CalendarController]\Models\" />
+      <Folder Include="Areas\CalendarController]\Views\" />
     </ItemGroup>
 
 </Project>
