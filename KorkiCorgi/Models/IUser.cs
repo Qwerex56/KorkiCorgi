@@ -6,7 +6,6 @@ public interface IUser {
     public string Name { get; set; }
     public string Surname { get; set; }
     
-    public AccountInformation? AccountInformation { get; init; }
     
     public ICollection<WeekCalendar> WeekCalendars { get; init; }
 }
