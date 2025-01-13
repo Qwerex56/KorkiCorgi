@@ -31,17 +31,18 @@ public class CalendarService : ICalendarService {
         await _context.WeekCalendars.FindAsync(id) is not { } weekCalendar ? 
             null : weekCalendar;
 
-    public WeekCalendarDayData? GetUserDayCalendar(int id, DayOfWeek day) {
+    public WeekCalendarDayData? GetUserDayCalendar(int id) {
         // var week = GetUserWeekCalendarById(id);
         //
         // return week?.Days.First((i) => i.DayOfWeek == day);
         return _context.WeekCalendarDayData.Find(id);
     }
     
-    public async Task<WeekCalendarDayData?> GetUserDayCalendarByIdAsync(int id, DayOfWeek day) {
+    public async Task<WeekCalendarDayData?> GetUserDayCalendarByIdAsync(int id) {
         return await _context.WeekCalendarDayData.FindAsync(id);
     }
 
+    //TODO - Walidacja czy użytkownik może usunąć post,
     public bool DeleteCalendarPost(int id) {
         var post = _context.WeekCalendarDayData.FirstOrDefault((day) => day.Id == id);
 

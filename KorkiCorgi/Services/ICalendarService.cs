@@ -3,17 +3,16 @@
 namespace KorkiCorgi.Services;
 
 /*  
-    TODO - getAll
-    TODO - Update?
-    TODO - Reservation
+    TODO - Update
+    TODO - Reservation?
  */
 public interface ICalendarService {
     public IEnumerable<WeekCalendar> GetUserCalendar(int userId);
     public Task<IEnumerable<WeekCalendar>> GetUserCalendarAsync (int userId);
     public WeekCalendar? GetUserWeekCalendarById(int id);
     public Task<WeekCalendar?> GetUserWeekCalendarByIdAsync(int id);
-    public WeekCalendarDayData? GetUserDayCalendar(int id, DayOfWeek day);
-    public Task<WeekCalendarDayData?> GetUserDayCalendarByIdAsync(int id, DayOfWeek day);
+    public WeekCalendarDayData? GetUserDayCalendar(int id);
+    public Task<WeekCalendarDayData?> GetUserDayCalendarByIdAsync(int id);
     public bool DeleteCalendarPost(int id);
     public Task<bool> DeleteCalendarPostAsync(int id);
     public bool DeleteCalendarWeek(int id);
