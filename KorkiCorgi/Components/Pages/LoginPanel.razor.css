@@ -1,0 +1,387 @@
+/* reset */
+ul {
+    padding: 0;
+}
+a {
+    text-decoration: none;  /* Usuwa podkreślenie */
+    color: inherit;         /* Przejmuje kolor z elementu nadrzędnego */
+}
+.main-container {
+    z-index: 5;
+    position: relative;
+    background-color: #1d1c1b;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 105vh;
+    overflow: hidden;
+}
+
+.top-navigation {
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    position: fixed;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.4vw;
+    height: 11vh;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.nav-background {
+    position: absolute;
+    width: 100%;
+    height: 13vh;
+    z-index: 100;
+}
+
+.nav-content {
+    gap:1.1vw;
+    z-index: 110;
+    text-wrap: nowrap;
+    position: relative;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-bottom:1vh;
+}
+
+.logo {
+    left: 0;
+    transform: translate(-140%, -60%);
+    position: absolute;
+    top: 50%;
+    width: auto;
+    height: 5vh;
+    z-index: 110;
+}
+
+.nav-link {
+    width: 9vw;
+    margin: auto 0;
+    cursor: pointer; 
+}
+
+.nav-link:hover {
+    color:#ffce99
+    
+}
+
+.main-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.main-background-image1 {
+    z-index: 5;
+    position: absolute;
+    top: 11%;
+    left: 10%;
+    width: 15%;
+}
+.main-background-image2 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 5%;
+    right: 15%;
+}
+.main-background-image3 {
+    z-index: 5;
+    position: absolute;
+    width: 10%;
+    max-width: 100%;
+    top: 60%;
+    right: 10%;
+}
+.main-background-image4 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 65%;
+    left: 15%;
+}
+
+.main-login-panel {
+    width: 30vw;
+    height: 70%;
+    margin-top: 8vh;
+    gap: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    min-height: 400px;
+}
+.main-title {
+    z-index: 10;
+    display: block;
+    color: #ffffff;
+    font: 3vw/1 "Nova Mono", serif;
+    text-align: center; 
+}
+.main-search{
+    width: 100%;
+    height: 100%;
+    background-color: #373737;  /* ciemnoszary kolor tła */
+    color: #DADADA;            /* jasnoszary kolor tekstu */
+    border: #373737 1px;       /* brak obramowania */
+    padding: 10px 20px;        /* wewnętrzny odstęp */
+    border-radius: 50px;       /* mocne zaokrąglenie przycisku */
+    font-size: 18px;           /* rozmiar czcionki */
+    font-weight: bold;         /* pogrubienie tekstu */
+    text-transform: lowercase; /* małe litery */
+    cursor: pointer;           /* kursor wskazujący na możliwość kliknięcia */
+    outline: none;             /* brak obramowania po kliknięciu */
+    box-shadow: none;          /* brak cienia */
+    display: inline-block;     /* dopasowanie przycisku do rozmiaru tekstu */
+    text-align: center;        /* wyśrodkowanie tekstu */
+    
+}
+
+input[class="main-search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none; /* Usuwa przycisk "x" */
+    appearance: none;
+}
+input:-webkit-autofill[class="main-search"] {   
+    box-shadow: 0 0 0px 1000px #373737 inset !important; /* Nadpisanie domyślnego tła */
+    -webkit-text-fill-color: #dadada !important;
+}
+
+.main-login-cell {
+    height: 8%;
+    width: 70%;
+}
+.main-search:hover {
+    background-color: #4a4a4a;
+}
+.main-search:focus {
+    border: 1px solid #4a4a4a;
+}
+.main-search:focus::placeholder {
+    color: transparent;
+}
+
+.button {
+    background-color: #d9d9d9;
+    color: #181818; 
+    border: 2px solid #181818; 
+    padding: 2vh 1vw; 
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 50px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    width:fit-content;
+}
+.button:hover {
+    background-color: #18181854;
+    border: 2px solid #d9d9d9; 
+    color: #d9d9d9;
+}
+
+/* Usunięcie strzałek w Chrome, Edge, Safari */
+.choice-button::-webkit-outer-spin-button,
+.choice-button::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Styl po najechaniu myszką */
+.choice-button:hover {
+    background-color: #4a4a4a;
+}
+
+/* Styl aktywnego pola */
+.choice-button:focus {
+    border: 1px solid #4a4a4a;
+}
+
+
+.main-status-choice {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.toggle-input {
+    display: none;
+}
+
+#student:checked + .choice-button {
+    background-color: #DADADA;
+    color: #181818;
+}
+
+#teacher:checked + .choice-button {
+    background-color: #DADADA;
+    color: #181818;
+}
+
+.login-button {
+    width: 45%;
+    text-align: center;
+    background-color: #373737;
+    border: #373737 1px;
+    color: #DADADA;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+    padding: 2%;
+}
+
+.login-button:hover {
+    background-color: #4a4a4a;
+    border: #4a4a4a 1px;
+}
+.second-top-line {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(-99%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.second-container {
+    z-index: 11;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.second-content {
+    position: relative;
+    background-color: #181818;
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    padding: 2vh 0 vh 0;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color:#dadada;
+    justify-content: center;
+    min-height: 1%;
+}
+
+.second-title {
+    font-size: 5vw;
+}
+.second-subtitle {
+
+    font-size: 2vw;
+}
+.second-bottom-line {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(99%);
+}
+.color-cod-gray {
+    color: #181818
+}
+.third-container {
+    background-image: url('images/third-background.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    z-index: 6;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    width: 100%;
+}
+.third-content {
+    z-index: 3;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#dadada;
+}
+
+.third-title {
+    font-size: 6vw;
+}
+.third-subtitle {
+    font-size: 2vw;
+}
+
+.help-content {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    left: 1vw;
+}
+.help-title {
+    font-size: 1.8vw;
+}
+.help-info {
+    font-size: 1.5vw;
+}
+
+.copyright {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    right: 1vw;
+    font-size: 1.5vw;
+}
+
+

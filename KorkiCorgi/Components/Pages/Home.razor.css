@@ -1,0 +1,355 @@
+﻿/* reset */
+ul {
+    padding: 0;
+}
+a {
+    text-decoration: none;  /* Usuwa podkreślenie */
+    color: inherit;         /* Przejmuje kolor z elementu nadrzędnego */
+}
+.button {
+    background-color: #d9d9d9;
+    color: #181818; 
+    border: 2px solid #181818; 
+    padding: 2vh 1vw; 
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 25px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    width:fit-content;
+}
+.button:hover {
+    background-color: #18181854;
+    color: #d9d9d9;
+}
+.main-container {
+    z-index: 5;
+    position: relative;
+    background-color: #1d1c1b;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 105vh;
+    overflow: hidden;
+}
+
+.top-navigation {
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    position: fixed;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.4vw;
+    height: 11vh;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.nav-background {
+    position: absolute;
+    width: 100%;
+    height: 13vh;
+    z-index: 100;
+}
+
+.nav-content {
+    gap:1.1vw;
+    z-index: 110;
+    text-wrap: nowrap;
+    position: relative;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-bottom:1vh;
+}
+
+.logo {
+    left: 0;
+    transform: translate(-140%, -60%);
+    position: absolute;
+    top: 50%;
+    width: auto;
+    height: 5vh;
+    z-index: 110;
+}
+
+.nav-link {
+    width: 9vw;
+    margin: auto 0;
+    cursor: pointer; 
+}
+
+.nav-link:hover {
+    color:#ffce99
+    
+}
+
+.main-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.main-background-image1 {
+    z-index: 5;
+    position: absolute;
+    top: 11%;
+    left: 10%;
+    width: 15%;
+}
+.main-background-image2 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 5%;
+    right: 15%;
+}
+.main-background-image3 {
+    z-index: 5;
+    position: absolute;
+    width: 10%;
+    max-width: 100%;
+    top: 60%;
+    right: 10%;
+}
+.main-background-image4 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 65%;
+    left: 15%;
+}
+.main-search-box {
+    z-index: 10;
+    position: absolute; 
+    display: flex; 
+    top: 36%;
+    width: 100%;
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Dodanie odstępu między elementami */
+}
+
+.main-search {
+    display: flex;
+    width: 40%;
+    height: 22%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.main-title {
+    z-index: 10;
+    display: block;
+    color: #ffce99;
+    font: 3vw/1 NATS, sans-serif;
+    text-align: center;
+}
+
+
+.search-input {
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 10;
+    border-radius: 88px;
+    background-color: #373737;
+    max-width: 100%;
+    color: #dadada;
+    padding: 0 23px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5vw;
+    border: #373737 2px;
+}
+
+input:-webkit-autofill[class="search-input"] {   
+    box-shadow: 0 0 0px 1000px #373737 inset !important; /* Nadpisanie domyślnego tła */
+    -webkit-text-fill-color: #dadada !important;
+}
+
+input[class="search-input"]::-webkit-search-cancel-button {
+    -webkit-appearance: none; /* Usuwa przycisk "x" */
+    appearance: none;
+}
+
+.search-accept-button {
+    width: 40vw;
+    height: 10%;
+    text-align: center;
+    background-color: #373737;
+    border: #373737 1px;
+    color: #DADADA;
+    border-radius: 50px;
+    font-size: 26px;
+    outline: none;
+    padding: 1.5%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font: 1.4vw/1 NATS, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.search-accept-button:hover {
+    background-color: #4a4a4a;
+    border: #4a4a4a 1px;
+}
+
+.second-top-line {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(-99%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.second-container {
+    z-index: 11;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.second-content {
+    position: relative;
+    background-color: #181818;
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    padding: 2vh 0 vh 0;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color:#dadada;
+    justify-content: center;
+    min-height: 1%;
+}
+
+.second-title {
+    font-size: 5vw;
+}
+.second-subtitle {
+
+    font-size: 2vw;
+}
+.second-bottom-line {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(99%);
+}
+.color-cod-gray {
+    color: #181818
+}
+.third-container {
+    background-image: url('images/third-background.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    z-index: 6;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    width: 100%;
+}
+.third-content {
+    z-index: 3;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#dadada;
+}
+
+.third-title {
+    font-size: 6vw;
+}
+.third-subtitle {
+    font-size: 2vw;
+}
+
+.help-content {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    left: 1vw;
+}
+.help-title {
+    font-size: 1.8vw;
+}
+.help-info {
+    font-size: 1.5vw;
+}
+
+.copyright {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    right: 1vw;
+    font-size: 1.5vw;
+}
+
