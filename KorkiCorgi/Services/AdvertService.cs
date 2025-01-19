@@ -10,19 +10,11 @@ public class AdvertService : IAdvertService {
     }
     
     public Advert? GetAdvertById(int id) {
-        if (_context.Adverts.Find(id) is not { } advert) {
-            return null;
-        }
-
-        return advert;
+        return _context.Adverts.Find(id);
     }
 
     public async Task<Advert?> GetAdvertByIdAsync(int id) {
-        if (await _context.Adverts.FindAsync(id) is not { } advert) {
-            return null;
-        }
-
-        return advert;
+        return await _context.Adverts.FindAsync(id);
     }
 
     public IEnumerable<Advert> GetAllUserAdverts(int userId) {

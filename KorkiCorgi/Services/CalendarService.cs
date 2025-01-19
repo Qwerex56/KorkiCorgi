@@ -24,12 +24,11 @@ public class CalendarService : ICalendarService {
     public WeekCalendar? GetUserWeekCalendarById(int id) {
         // podpatrzyłem u Ciebie pattern matching,
         // ale jak zobaczyłem one-linera od ridera to musiałem go wybrać 
-        return _context.WeekCalendars.Find(id) is not { } weekCalendar ? null : weekCalendar;
+        return _context.WeekCalendars.Find(id);
     }
 
     public async Task<WeekCalendar?> GetUserWeekCalendarByIdAsync(int id) =>
-        await _context.WeekCalendars.FindAsync(id) is not { } weekCalendar ? 
-            null : weekCalendar;
+        await _context.WeekCalendars.FindAsync(id);
 
     public WeekCalendarDayData? GetUserDayCalendar(int id) {
         // var week = GetUserWeekCalendarById(id);
@@ -44,7 +43,7 @@ public class CalendarService : ICalendarService {
 
     //TODO - Walidacja czy użytkownik może usunąć post,
     public bool DeleteCalendarPost(int id) {
-        var post = _context.WeekCalendarDayData.FirstOrDefault((day) => day.Id == id);
+        var post = _context.WeekCalendarDayData.FirstOrDefault(day => day.Id == id);
 
         if (post is null) {
             return false;
@@ -57,7 +56,7 @@ public class CalendarService : ICalendarService {
     }
 
     public async Task<bool> DeleteCalendarPostAsync(int id) {
-        var post = await _context.WeekCalendarDayData.FirstOrDefaultAsync((day) => day.Id == id);
+        var post = await _context.WeekCalendarDayData.FirstOrDefaultAsync(day => day.Id == id);
 
         if (post is null) {
             return false;
