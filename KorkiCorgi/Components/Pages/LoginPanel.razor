@@ -1,39 +1,31 @@
-﻿@page "/"
+@page "/LoginPanel"
 
 
 <PageTitle>Corgi</PageTitle>
-
-
-@* <p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-} *@
 
 <selection class="main-container">
     <img src="images/background1.png" class="main-background-image1 parallax" speed="0.6"/>
     <img src="images/background2.png" class="main-background-image2 parallax" speed="0.7" />  
     <img src="images/background3.png" class="main-background-image3 parallax" speed="0.4"/>
     <img src="images/background4.png" class="main-background-image4 parallax" speed="0.3" />  
-    
     <section class="main-content"> 
-        <div class="main-search-box">
-            <h1 class="main-title">POTRZEBUJESZ KOREPETYCJI?</h1>
-            <div class="main-search">
-                <label for="subject-search" class="visually-hidden">Wpisz nazwę przedmiotu</label>
-                <input type="search" id="subject-search" class="search-input" placeholder="Wpisz nazwę przedmiotu" />
-            </div>
-            <a href="/AnnouncementList" class="search-accept-button">Szukaj</a>
-        </div> 
-    </section>
 
+        <div class="main-login-panel">
+        
+            <h1 class="main-title">LOGOWANIE</h1>  
+            <div class="main-login-cell">
+                <label for="subject-search" class="visually-hidden">email</label>
+                <input type="search" id="subject-search" class="main-search" placeholder="email" />
+            </div>     
+            <div class="main-login-cell">
+                <label for="subject-search" class="visually-hidden">hasło</label>
+                <input type="search" id="subject-search" class="main-search" placeholder="hasło" />
+            </div>
+
+            <button class="login-button">Zaloguj</button>
+
+        </div>
+    </section>
 </selection>
 
 <selection class="second-container">
