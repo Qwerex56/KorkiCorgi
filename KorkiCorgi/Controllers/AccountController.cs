@@ -29,28 +29,29 @@ public class AccountController : Controller {
         if (result is false) {
             return BadRequest();
         }
-        
-        var msg = JsonSerializer.Serialize(result);
-        
-        Console.WriteLine(msg);
-        
+
         return Ok(result);
     }
     
-    [HttpGet("/LoginToAccount")]
+    [HttpGet(template: nameof(LoginToAccount), Name = nameof(LoginToAccount))]    
     public IActionResult LoginToAccount([FromBody] UserDto userDto) {
         if (!ModelState.IsValid) {
+            Console.WriteLine("bad dto");
             return BadRequest(userDto);
         }
 
         if (_accountService.LoginAccount(userDto)) {
+            Console.WriteLine("Will log in");
+            
             HttpContext.Response.Cookies.Append("user", userDto.Email, new CookieOptions{
                 Expires = DateTime.UtcNow.AddDays(7),
                 IsEssential = true,
             });
-    
+            
             return Ok("User logged in.");
         }
+        
+        Console.WriteLine("Will not log in");
         
         return BadRequest("Invalid password or username.");
     }
