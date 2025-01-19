@@ -131,7 +131,7 @@
     <h3 class="copyright">©Corgi</h3>
 </selection>
 
-<Child ProfilDto="ProfilDto"/>
+<ProfilPanel ProfilDto="ProfilDto"/>
 
 @code {
 
@@ -141,7 +141,8 @@
     
     protected override void OnInitialized() {
         var context = new HttpClient();
-        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("https://localhost:44329/api/v1/Advert").Result;
+        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("https://localhost:44329/api/v1/Advert")
+            .Result;
     }
 
 
