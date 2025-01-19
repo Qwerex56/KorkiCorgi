@@ -87,7 +87,6 @@
 
     private void OnUserRegister() {
         var context = new HttpClient();
-        Console.WriteLine("XDDD");
         context.PostAsJsonAsync("http://localhost:5121/api/v1/Account", _userDto);
     }
 

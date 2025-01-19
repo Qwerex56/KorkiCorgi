@@ -18,7 +18,7 @@ public class AccountController : Controller {
             accountService ?? throw new ArgumentNullException(nameof(accountService));
     }
 
-    [HttpPost(Name = nameof(CreateAccount))]
+    [HttpPost(template: nameof(CreateAccount), Name = nameof(CreateAccount))]
     public ActionResult<string> CreateAccount([FromBody] UserDto userDto) {
         if (!ModelState.IsValid) {
             return BadRequest(userDto);
@@ -42,7 +42,7 @@ public class AccountController : Controller {
         if (!ModelState.IsValid) {
             return BadRequest(userDto);
         }
-    
+
         if (_accountService.LoginAccount(userDto)) {
             HttpContext.Response.Cookies.Append("user", userDto.Email, new CookieOptions{
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -57,16 +57,17 @@ public class AccountController : Controller {
     
     [HttpGet("/GetLoginState")]
     public IActionResult GetLoginState() {
-        if (HttpContext.Request.Cookies.TryGetValue("user", out var user)) {
-            return Ok($"Welcome back, {user}.");
+        if (!HttpContext.Request.Cookies.TryGetValue("user", out var user)) {
+            return NotFound("No user login state found.");
         }
-    
-        return NotFound("No user login state found.");
+        
+        var userDto = JsonSerializer.Deserialize<string>(user);
+        return Ok(userDto);
     }
 
-    [HttpGet(Name = nameof(GetAccount))]
-    public IActionResult GetAccount() {
-        var user = _accountService.GetUserByEmail("us@example.com");
+    [HttpGet(template: "/GetAccount/{email}", Name = nameof(GetAccount))]
+    public IActionResult GetAccount(string email) {
+        var user = _accountService.GetUserByEmail(email);
         return Ok(user);
     }
 }
