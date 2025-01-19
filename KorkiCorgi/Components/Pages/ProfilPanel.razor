@@ -1,4 +1,6 @@
 @page "/ProfilPanel"
+@using KorkiCorgi.DataTransferObjects
+@using KorkiCorgi.Models
 
 
 <PageTitle>Corgi</PageTitle>
@@ -31,18 +33,19 @@
                 ZAPISZ SIĘ NA KOREPETYCJE
             </h1>
             <h1 class="main-description">
-                Witam
-                Jestem studentem Politechniki Wrocławskiej i udzielam korepetycje z matematyki na poziomie podstawówki jak i liceum. Maturę z matematyki zdałem bardzo wysoko, więc chętnie przygotuję do niej również ciebie.
-                Mam już w tym 4 letnie doświadczenie w pracy z uczniami z podstawówki, którzy potrzebowali pomocy z ułamkami jak i z licealistami przygotowywującymi się do matury.
-                Jeśli wiec szukasz kogoś z kim w miły i przyjemny sposób nadrobisz swoje zaległości albo przygotujesz się do matury to zapraszam do kontaktu.
-                Całość prowadzę online, więc jestem dosyć elastyczny jeśli chodzi o terminy. Posiadam tablet graficzny i wszystko przebiega bardzo sprawnie
-                W razie zainteresowania proszę pisać lub dzwonić
-                Pozdrawiam
+                @ProfilDto.Description
+                @* Witam *@
+                @* Jestem studentem Politechniki Wrocławskiej i udzielam korepetycje z matematyki na poziomie podstawówki jak i liceum. Maturę z matematyki zdałem bardzo wysoko, więc chętnie przygotuję do niej również ciebie. *@
+                @* Mam już w tym 4 letnie doświadczenie w pracy z uczniami z podstawówki, którzy potrzebowali pomocy z ułamkami jak i z licealistami przygotowywującymi się do matury. *@
+                @* Jeśli wiec szukasz kogoś z kim w miły i przyjemny sposób nadrobisz swoje zaległości albo przygotujesz się do matury to zapraszam do kontaktu. *@
+                @* Całość prowadzę online, więc jestem dosyć elastyczny jeśli chodzi o terminy. Posiadam tablet graficzny i wszystko przebiega bardzo sprawnie *@
+                @* W razie zainteresowania proszę pisać lub dzwonić *@
+                @* Pozdrawiam *@
             </h1>            
         </div>
         <div class="main-user-info">
             <img src="images/user-image.png" class="info-image"/>
-            <h1 class="info-name">Kajtuś</h1>
+            <h1 class="info-name">@ProfilDto.Name + @ProfilDto.Surname</h1>
             <div class="info-rate">
                 <div class="info-prize">
                     <span class="info-prize-number">70</span>
@@ -53,12 +56,12 @@
             <button class="info-button">ZAPISZ SIĘ</button>
             <div class="info-image-container">
                 <img src="images/heart.png" class="info-heart-img"/>
-                <h1 class="info-hearts">123</h1>
+                <h1 class="info-hearts">@ProfilDto.AccountStatistics.OwnerRating</h1>
                 <h1 class="info-hearts-description">PODZIĘKOWANIA</h1>
             </div>
             <div class="info-image-container">
                 <img src="images/material.png" class="info-material-img"/>
-                <h1 class="info-materials">16</h1>
+                <h1 class="info-materials">@ProfilDto.AccountStatistics.TotalMaterialsCount</h1>
                 <h1 class="info-materials-description">LICZBA MATERIAŁÓW</h1>
             </div>
             <button class="info-button">MATERIAŁY</button>
@@ -98,3 +101,10 @@
     </div>
     <h3 class="copyright">©Corgi</h3>
 </selection>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public required ProfilPanelDto ProfilDto { get; set; }
+    
+}
