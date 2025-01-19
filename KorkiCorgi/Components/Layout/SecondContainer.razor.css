@@ -1,0 +1,46 @@
+.second-container {
+    z-index: 11;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.second-content {
+    position: relative;
+    background-color: #181818;
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    padding: 2vh 0 vh 0;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color:#dadada;
+    justify-content: center;
+    min-height: 1%;
+}
+
+.second-title {
+    font-size: 5vw;
+}
+.second-subtitle {
+
+    font-size: 2vw;
+}
+.second-bottom-line {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(99%);
+}
+.color-cod-gray {
+    color: #181818
+}

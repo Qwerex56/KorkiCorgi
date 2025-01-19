@@ -1,5 +1,10 @@
 @page "/LoginPanel"
+@using KorkiCorgi.DataTransferObjects
+@using KorkiCorgi.Models.Enums
+@inject NavigationManager Navigation
+@inject ILogger<LoginPanel> Logger
 
+@rendermode InteractiveServer
 
 <PageTitle>Corgi</PageTitle>
 
@@ -15,14 +20,16 @@
             <h1 class="main-title">LOGOWANIE</h1>  
             <div class="main-login-cell">
                 <label for="subject-search" class="visually-hidden">email</label>
-                <input type="search" id="subject-search" class="main-search" placeholder="email" />
+                <input input value="@_userDto.Email" @onchange="@(e => _userDto.Email = e.Value?.ToString() ?? string.Empty)"
+                    type="search" id="subject-search" class="main-search" placeholder="email" />
             </div>     
             <div class="main-login-cell">
                 <label for="subject-search" class="visually-hidden">hasło</label>
-                <input type="search" id="subject-search" class="main-search" placeholder="hasło" />
+                <input value="@_userDto.Password" @onchange="@(e => _userDto.Password = e.Value?.ToString() ?? string.Empty)" 
+                    type="search" id="subject-search" class="main-search" placeholder="hasło" />
             </div>
 
-            <button class="login-button">Zaloguj</button>
+            <button @onclick="OnUserLogin" class="login-button">Zaloguj</button>
 
         </div>
     </section>
@@ -50,3 +57,23 @@
     </div>
     <h3 class="copyright">©Corgi</h3>
 </selection>
+
+
+@code {
+    private UserDto _userDto = new();
+
+    private async Task OnUserLogin() {
+        var context = new HttpClient();
+
+        try {
+            var response = await context.PostAsJsonAsync("http://localhost:5121/api/v1/Account/LoginToAccount", _userDto);
+            if (response.IsSuccessStatusCode) {
+                Navigation.NavigateTo("/");
+            } else {
+                Logger.LogInformation("Nie udało się zalogować.");
+            }
+        } catch (Exception ex) {
+            Logger.LogError(ex, "An error occurred during login.");
+        }
+    }
+}
