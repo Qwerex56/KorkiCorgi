@@ -37,31 +37,30 @@ public class AccountController : Controller {
         return Ok(result);
     }
     
-    
-    public IActionResult LoginToAccount([FromBody] UserDto userDto) {
-        if (!ModelState.IsValid) {
-            return BadRequest(userDto);
-        }
-
-        if (_accountService.LoginAccount(userDto)) {
-            HttpContext.Response.Cookies.Append("user", userDto.Email, new CookieOptions{
-                Expires = DateTime.UtcNow.AddDays(7),
-                IsEssential = true,
-            });
-
-            return Ok("User logged in.");
-        }
-        
-        return BadRequest("Invalid password or username.");
-    }
-
-    public IActionResult GetLoginState() {
-        if (HttpContext.Request.Cookies.TryGetValue("user", out var user)) {
-            return Ok($"Welcome back, {user}.");
-        }
-
-        return NotFound("No user login state found.");
-    }
+    // public IActionResult LoginToAccount([FromBody] UserDto userDto) {
+    //     if (!ModelState.IsValid) {
+    //         return BadRequest(userDto);
+    //     }
+    //
+    //     if (_accountService.LoginAccount(userDto)) {
+    //         HttpContext.Response.Cookies.Append("user", userDto.Email, new CookieOptions{
+    //             Expires = DateTime.UtcNow.AddDays(7),
+    //             IsEssential = true,
+    //         });
+    //
+    //         return Ok("User logged in.");
+    //     }
+    //     
+    //     return BadRequest("Invalid password or username.");
+    // }
+    //
+    // public IActionResult GetLoginState() {
+    //     if (HttpContext.Request.Cookies.TryGetValue("user", out var user)) {
+    //         return Ok($"Welcome back, {user}.");
+    //     }
+    //
+    //     return NotFound("No user login state found.");
+    // }
 
     [HttpGet(Name = nameof(GetAccount))]
     public IActionResult GetAccount() {
