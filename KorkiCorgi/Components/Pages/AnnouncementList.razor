@@ -2,7 +2,7 @@
 @using KorkiCorgi.DataTransferObjects
 @using KorkiCorgi.Models
 @using KorkiCorgi.Services
-@inject AccountService AccountService
+@inject IAccountService AccountService
 
 @rendermode InteractiveServer
 @* AnnouncementList *@
@@ -61,10 +61,9 @@
                 <h1 class="main-subtitle">MATEMATYKA</h1>
             </div>
             @* pętla wywołująca div'y *@
-            @foreach (var item in _advertsQuery) {
+            @foreach (var item in _advertsQuery!) {
                 {
                     //curwa
-                    if (item is null) continue;
                     var user = AccountService.GetUserById(item.UserId);
 
                     <div class="main-content-announcements-announcement">
@@ -142,7 +141,7 @@
     
     protected override void OnInitialized() {
         var context = new HttpClient();
-        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("api/v1/Advert").Result;
+        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("https://localhost:44329/api/v1/Advert").Result;
     }
 
 
