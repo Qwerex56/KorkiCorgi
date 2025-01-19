@@ -1,0 +1,464 @@
+/* reset */
+ul {
+    padding: 0;
+}
+a {
+    text-decoration: none;  /* Usuwa podkreślenie */
+    color: inherit;         /* Przejmuje kolor z elementu nadrzędnego */
+}
+h1 {
+    color: inherit;         /* Przejmuje kolor z elementu nadrzędnego */
+    font-size: inherit;
+    margin: 0;
+}
+.main-container {
+    z-index: 5;
+    position: relative;
+    background-color: #1d1c1b;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 105vh;
+    overflow: hidden;
+}
+
+.top-navigation {
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    position: fixed;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.4vw;
+    height: 11vh;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.nav-background {
+    position: absolute;
+    width: 100%;
+    height: 13vh;
+    z-index: 100;
+}
+
+.nav-content {
+    gap:1.1vw;
+    z-index: 110;
+    text-wrap: nowrap;
+    position: relative;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-bottom:1vh;
+}
+
+.logo {
+    left: 0;
+    transform: translate(-140%, -60%);
+    position: absolute;
+    top: 50%;
+    width: auto;
+    height: 5vh;
+    z-index: 110;
+}
+
+.nav-link {
+    width: 9vw;
+    margin: auto 0;
+    cursor: pointer; 
+}
+
+.nav-link:hover {
+    color:#ffce99
+    
+}
+
+
+
+.main-background-image1 {
+    z-index: 5;
+    position: absolute;
+    top: 11%;
+    left: 10%;
+    width: 15%;
+}
+.main-background-image2 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 5%;
+    right: 15%;
+}
+.main-background-image3 {
+    z-index: 5;
+    position: absolute;
+    width: 10%;
+    max-width: 100%;
+    top: 60%;
+    right: 10%;
+}
+.main-background-image4 {
+    z-index: 5;
+    position: absolute;
+    width: 15%;
+    max-width: 100%;
+    top: 65%;
+    left: 15%;
+}
+
+.main-content {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    height: 90vh;
+}
+.main-profile-header{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color:#d9d9d9;
+    padding: 10%;
+}
+.main-title{
+    width: 100%;
+    height: 10%;
+    margin-top: 0;
+    margin-bottom: 10%;
+    font-size: 3vw;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#ffce99
+    
+}
+.main-description{
+    width: 100%;
+    height: 60%;
+    font-size: 1.2vw;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+.main-user-info{
+    width: 30%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+    text-align: center;
+    color: #d9d9d9;
+    justify-content: space-between;
+    min-width: 3dvh;
+}
+.info-image{
+    width: 25%;
+    height: auto;
+}
+.info-name{
+    font-family: "Josefin Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 1.5vw;
+}
+.info-rate{
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    height: fit-content;
+    margin: -5% 0;
+}
+.info-prize{
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    width: fit-content;
+    height: 60%;
+    color: #dadada;
+}
+.info-prize-number{
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffce99;
+    font-size: 2.5vw;
+    height: fit-content;
+}
+.info-prize-currency{
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.8vw;
+}
+.info-time{
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.8vw;
+}
+
+.info-image-container{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+}
+.info-heart-img{
+    width: 12%;
+    height: auto;
+}
+.info-hearts{
+    position: absolute;
+    color: #181818;
+    text-align: center;
+    transform: translateY(-50%);
+    font-size: 1.1vw;
+}
+.info-hearts-description{
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-size: 0.8vw;
+    width: fit-content;
+    margin-top: 0.5%;
+}
+
+.info-material-img{
+    width: 12%;
+    height: auto;
+}
+.info-materials{
+    position: absolute;
+    color: #181818;
+    text-align: center;
+    transform: translateY(-50%);
+    font-size: 1.1vw;
+}
+.info-materials-description{
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-size: 0.8vw;
+    width: fit-content;
+    margin-top: 0.5%;
+}
+.info-button{
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    font-size: 1.1vw;
+    color: #181818;
+    padding: 1%;
+    width: 50%;
+    height: 8%;
+}
+.info-lesson-details{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8vw;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    gap:5%;
+
+}
+.info-online{
+    display: flex;
+    flex-direction: column;    
+    width: fit-content;
+    align-items: center;
+}
+.info-online-question{
+    width: fit-content;
+}
+.info-online-answer{
+    color: #ffce99;
+    width: fit-content;
+}
+.info-place{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+}
+.info-place-question{
+    width: fit-content;
+}
+.info-place-answer{
+    color: #ffce99;
+    width: fit-content;
+}
+
+
+.button {
+    background-color: #d9d9d9;
+    color: #181818; 
+    border: 2px solid #181818; 
+    padding: 2vh 1vw; 
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 25px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    width:fit-content;
+}
+.button:hover {
+    background-color: #18181854;
+    color: #d9d9d9;
+}
+
+
+
+.second-top-line {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(-99%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.second-container {
+    z-index: 11;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.second-content {
+    position: relative;
+    background-color: #181818;
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    padding: 2vh 0 vh 0;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color:#dadada;
+    justify-content: center;
+    min-height: 1%;
+}
+
+.second-title {
+    font-size: 5vw;
+}
+.second-subtitle {
+
+    font-size: 2vw;
+}
+.second-bottom-line {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    object-position: center;
+    width: 100%;
+    height: 16vh;
+    transform: translateY(99%);
+}
+.color-cod-gray {
+    color: #181818
+}
+.third-container {
+    background-image: url('images/third-background.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    z-index: 6;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    width: 100%;
+}
+.third-content {
+    z-index: 3;
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: "Nova Mono", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#dadada;
+}
+
+.third-title {
+    font-size: 6vw;
+}
+.third-subtitle {
+    font-size: 2vw;
+}
+
+.help-content {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    left: 1vw;
+}
+.help-title {
+    font-size: 1.8vw;
+}
+.help-info {
+    font-size: 1.5vw;
+}
+
+.copyright {
+    position: absolute;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+    color: #d9d9d9;
+    bottom: 1vh;
+    right: 1vw;
+    font-size: 1.5vw;
+}
+
