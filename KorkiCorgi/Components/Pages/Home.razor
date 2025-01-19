@@ -28,7 +28,7 @@
             <h1 class="main-title">POTRZEBUJESZ KOREPETYCJI?</h1>
             <div class="main-search">
                 <label for="subject-search" class="visually-hidden">Wpisz nazwę przedmiotu</label>
-                <input type="search" id="subject-search" class="search-input" placeholder="Wpisz nazwę przedmiotu" />
+                <input value="@_search" @onchange="@(e => {_search = e.Value?.ToString() ?? string.Empty; Search(); })" type="search" id="subject-search" class="search-input" placeholder="Wpisz nazwę przedmiotu" />
             </div>
             <a href="/AnnouncementList" class="search-accept-button">Szukaj</a>
         </div> 
@@ -58,3 +58,60 @@
     </div>
     <h3 class="copyright">©Corgi</h3>
 </selection>
+
+<AnnouncementList Search="_search"/>
+
+@code{
+    private string _search = "";
+
+    //private List<User> _searchResults;
+    // private async Task Search()
+    // {
+    //     if (!string.IsNullOrEmpty(_search))
+    //     {
+    //         _searchResults = await 
+    //     }
+    //     else
+    //     {
+    //         _searchResults.Clear();
+    //     }
+    // }
+    private List<string> pseudo = new List<string> { "Marek", "Darek", "Browarek", "Mikołaj", "Adrian", "Hubert_niszczyciel" };
+    private List<string> _searchResults;
+
+    private void Search()
+    {
+        _searchResults.Clear();
+        if (!string.IsNullOrEmpty(_search))
+        {
+            foreach (var word in pseudo)
+            {
+                if (IsMatch(word, _search))
+                {
+                    _searchResults.Add(word);
+                }
+            }
+        }
+    }
+
+    private bool IsMatch(string word, string searchTerm)
+    {
+        int searchIndex = 0;
+
+        for (int i = 0; i < word.Length; i++)
+        {
+            if (searchIndex < searchTerm.Length && word[i] == searchTerm[searchIndex])
+            {
+                searchIndex++;
+            }
+
+            if (searchIndex == searchTerm.Length)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}
