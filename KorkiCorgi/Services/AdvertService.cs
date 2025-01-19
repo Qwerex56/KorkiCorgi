@@ -17,6 +17,16 @@ public class AdvertService : IAdvertService {
         return await _context.Adverts.FindAsync(id);
     }
 
+    public IEnumerable<Advert> GetAllAdverts() {
+        var adverts = _context.Adverts.Where(adverts => true);
+        
+        return adverts;
+    }
+
+    public async Task<IEnumerable<Advert>> GetALlAdvertsAsync() {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<Advert> GetAllUserAdverts(int userId) {
         var adverts = _context.Adverts.Where(advert => advert.UserId == userId);
 

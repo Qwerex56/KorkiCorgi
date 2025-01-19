@@ -32,6 +32,13 @@ public class AdvertController : Controller {
         return NotFound(result);
     }
 
+    [HttpGet()]
+    public ActionResult<IEnumerable<Advert>> GetAllAdverts() {
+        var result = _advertService.GetAllAdverts();
+
+        return Ok(result);
+    }
+
     [HttpGet(nameof(GetUserAdverts) + "/{userId:int}", Name = nameof(GetUserAdverts))]
     public ActionResult<IEnumerable<Advert>> GetUserAdverts(int userId) {
         return Ok((_advertService.GetAllUserAdverts(userId)));

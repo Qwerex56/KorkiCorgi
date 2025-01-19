@@ -1,4 +1,10 @@
 @page "/AnnouncementList"
+@using KorkiCorgi.DataTransferObjects
+@using KorkiCorgi.Models
+@using KorkiCorgi.Services
+@inject IAccountService AccountService
+
+@rendermode InteractiveServer
 @* AnnouncementList *@
 
 <PageTitle>Corgi/ListaOgloszen</PageTitle>
@@ -55,45 +61,49 @@
                 <h1 class="main-subtitle">MATEMATYKA</h1>
             </div>
             @* pętla wywołująca div'y *@
-            <div class="main-content-announcements-announcement">
-                <div class="announcement-user">
-                    <img src="images/user-image.png" class="announcement-user-image"/>
-                    <h1 class="announcement-user-name">Kajtuś</h1>
-                </div>
-                <div class="announcement-content">
-                    <div class="announcement-content-up">
-                        <h1 class="announcement-title">Nauczyciel matematyki w szkole średniej</h1>
-                        <h1 class="announcement-description">Cześć, jestem nauczycielem matematyki w szkole średniej. Prowadzę korepetycje od kilku lat. Wiem jak dotrzeć do każdego i przygotowałem mnóstwo materiałów, które mi w tym pomogą.</h1>
-                    </div>
-                    <div class="announcement-content-down">
-                        <div class="announcement-content-down-info">
-                            <h1 class="announcement-online">Lekcja online: <span class="color-peach-orange">Tak</span></h1>
-                            <h1 class="announcement-place">miejsce: <span class="color-peach-orange">U korepetytora</span></h1>
-                        </div>
-                        <div class="announcement-content-down-rate">
-                            <div class="announcement-prize">
-                                <span class="announcement-prize-number">70</span>
-                                <span class="announcement-prize-currency">zł</span>
-                            </div>
-                            <h1 class="announcement-time">za 60 minut</h1>
-                        </div>
-                        <div class="announcement-content-down-button">
-                            <a href="/ProfilPanel" class="announcement-button">Umów teraz</a>
-                        </div>
+            @foreach (var item in _advertsQuery!) {
+                {
+                    //curwa
+                    var user = AccountService.GetUserById(item.UserId);
 
+                    <div class="main-content-announcements-announcement">
+                        <div class="announcement-user">
+                            <img src="images/user-image.png" class="announcement-user-image"/>
+                            <h1 class="announcement-user-name">@user.Name + " " + @user.Surname</h1>
+                        </div>
+                        <div class="announcement-content">
+                            <div class="announcement-content-up">
+                                <h1 class="announcement-title">@item.Title</h1>
+                                <h1 class="announcement-description">@item.Descrition</h1>
+                            </div>
+                            <div class="announcement-content-down">
+                                <div class="announcement-content-down-info">
+                                    <h1 class="announcement-online">Lekcja online: <span class="color-peach-orange">@item.IsOnline</span></h1>
+                                    <h1 class="announcement-place">miejsce: <span class="color-peach-orange">@item.MeetingPlace</span></h1>
+                                </div>
+                                <div class="announcement-content-down-rate">
+                                    <div class="announcement-prize">
+                                        <span class="announcement-prize-number">@item.Cost</span>
+                                        <span class="announcement-prize-currency">zł</span>
+                                    </div>
+                                    <h1 class="announcement-time">za 60 minut</h1>
+                                </div>
+                                <button onclick="OnSelected(@item, @user)" class="announcement-content-down-button" href="/ProfilPanel">Umów teraz</button>
+                            </div>
+                        </div>
+                        <div class="announcement-statistics">
+                            <div class="image-container">
+                                <img src="images/heart.png" class="announcement-user-heart-img"/>
+                                <h1 class="announcement-user-hearts">@user.AccountStatistics.OwnerRating</h1>
+                            </div>
+                            <div class="image-container">
+                                <img src="images/material.png" class="announcement-user-material-img"/>
+                                <h1 class="announcement-user-materials">@user.AccountStatistics.TotalMaterialsCount</h1>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="announcement-statistics">
-                    <div class="image-container">
-                        <img src="images/heart.png" class="announcement-user-heart-img"/>
-                        <h1 class="announcement-user-hearts">123</h1>
-                    </div>
-                    <div class="image-container">
-                        <img src="images/material.png" class="announcement-user-material-img"/>
-                        <h1 class="announcement-user-materials">16</h1>
-                    </div>
-                </div>
-            </div>
+                }
+            }
         </div> 
     </div>
 </selection>
@@ -120,3 +130,30 @@
     </div>
     <h3 class="copyright">©Corgi</h3>
 </selection>
+
+<ProfilPanel ProfilDto="ProfilDto"/>
+
+@code {
+
+    private IEnumerable<Advert>? _advertsQuery;
+
+    private ProfilPanelDto ProfilDto { get; set; } = new();
+    
+    protected override void OnInitialized() {
+        var context = new HttpClient();
+        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("https://localhost:44329/api/v1/Advert")
+            .Result;
+    }
+
+
+    private void OnSelected(Advert advert, User user) {
+        ProfilDto.Name = user.Name;
+        ProfilDto.Surname = user.Surname;
+        ProfilDto.AccountStatistics = user.AccountStatistics;
+        ProfilDto.Description = advert.Descrition;
+        ProfilDto.Cost = advert.Cost;
+        ProfilDto.IsOnline = advert.IsOnline;
+        ProfilDto.MeetingPlace = advert.MeetingPlace;
+    }
+
+}

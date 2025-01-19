@@ -5,6 +5,8 @@ namespace KorkiCorgi.Services;
 public interface IAdvertService {
     public Advert? GetAdvertById(int id);
     public Task<Advert?> GetAdvertByIdAsync(int id);
+    public IEnumerable<Advert> GetAllAdverts();
+    public Task<IEnumerable<Advert>> GetALlAdvertsAsync();
 
     public IEnumerable<Advert> GetAllUserAdverts(int userId);
     public Task<IEnumerable<Advert>> GetAllUserAdvertsAsync(int userId);

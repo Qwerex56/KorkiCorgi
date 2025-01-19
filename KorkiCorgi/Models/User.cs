@@ -19,7 +19,6 @@ public class User : IUser {
     public string Password { get; set; } = string.Empty;
     public AccountType AccountType { get; set; } = AccountType.User;
     public AccountStatistics AccountStatistics { get; set; } = null!;
-
     public ICollection<EducationMaterial> EducationMaterials { get; init; } = [];
     public ICollection<WeekCalendar> WeekCalendars { get; init; } = [];
 }
