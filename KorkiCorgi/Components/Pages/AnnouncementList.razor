@@ -17,31 +17,31 @@
     <img src="images/background2.png" class="main-background-image2 parallax" speed="0.7" />  
     <img src="images/background3.png" class="main-background-image3 parallax" speed="0.4"/>
     <img src="images/background4.png" class="main-background-image4 parallax" speed="0.3" />   *@
-    
+
     <div class="main-filters">
-        
-        <h1 class="main-title">FILTRY</h1>       
+
+        <h1 class="main-title">FILTRY</h1>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Nazwa przedmiotu</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Nazwa przedmiotu" />
+            <input type="search" id="subject-search" class="main-search" placeholder="Nazwa przedmiotu"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Miasto</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Miasto" />
+            <input type="search" id="subject-search" class="main-search" placeholder="Miasto"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Przedmiot</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Przedmiot" />
+            <input type="search" id="subject-search" class="main-search" placeholder="Przedmiot"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Zakres materiału</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Zakres materiału" />
+            <input type="search" id="subject-search" class="main-search" placeholder="Zakres materiału"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Rodzaj lekcji</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Rodzaj lekcji" />
+            <input type="search" id="subject-search" class="main-search" placeholder="Rodzaj lekcji"/>
         </div>
-        
+
         <div class="main-filters-filter-cost">
             <div class="cost-label">cena</div>
             <div class="cost-inputs">
@@ -49,79 +49,90 @@
                 <input type="number" class="cost-input" placeholder="do" min="0">
             </div>
         </div>
-    
-        
+
 
     </div>
-    <div class="main-content"> 
-        
+    <div class="main-content">
+
         <div class="main-content-announcements">
             <div class="main-content-text">
                 <h1 class="main-title">OGŁOSZENIA</h1>
                 <h1 class="main-subtitle">MATEMATYKA</h1>
             </div>
             @* pętla wywołująca div'y *@
-            @foreach (var item in _advertsQuery!) {
-                {
-                    //curwa
-                    var user = AccountService.GetUserById(item.UserId);
 
-                    <div class="main-content-announcements-announcement">
-                        <div class="announcement-user">
-                            <img src="images/user-image.png" class="announcement-user-image"/>
-                            <h1 class="announcement-user-name">@user.Name + " " + @user.Surname</h1>
-                        </div>
-                        <div class="announcement-content">
-                            <div class="announcement-content-up">
-                                <h1 class="announcement-title">@item.Title</h1>
-                                <h1 class="announcement-description">@item.Descrition</h1>
+            @if (_advertsQuery is null) {
+                <div>
+                    <p>
+                        Brak Wyszukań
+                    </p>
+                </div>
+            }
+            else {
+                foreach (var item in _advertsQuery!) {
+                    {
+                        var user = AccountService.GetUserById(item.UserId);
+
+                        <div class="main-content-announcements-announcement">
+                            <div class="announcement-user">
+                                <img src="images/user-image.png" class="announcement-user-image"/>
+                                <h1 class="announcement-user-name">@(user.Name + " " + user.Surname)</h1>
                             </div>
-                            <div class="announcement-content-down">
-                                <div class="announcement-content-down-info">
-                                    <h1 class="announcement-online">Lekcja online: <span class="color-peach-orange">@item.IsOnline</span></h1>
-                                    <h1 class="announcement-place">miejsce: <span class="color-peach-orange">@item.MeetingPlace</span></h1>
+                            <div class="announcement-content">
+                                <div class="announcement-content-up">
+                                    <h1 class="announcement-title">@item.Title</h1>
+                                    <h1 class="announcement-description">@item.Descrition</h1>
                                 </div>
-                                <div class="announcement-content-down-rate">
-                                    <div class="announcement-prize">
-                                        <span class="announcement-prize-number">@item.Cost</span>
-                                        <span class="announcement-prize-currency">zł</span>
+                                <div class="announcement-content-down">
+                                    <div class="announcement-content-down-info">
+                                        <h1 class="announcement-online">Lekcja online: <span class="color-peach-orange">@item.IsOnline</span></h1>
+                                        <h1 class="announcement-place">miejsce: <span class="color-peach-orange">@item.MeetingPlace</span></h1>
                                     </div>
-                                    <h1 class="announcement-time">za 60 minut</h1>
+                                    <div class="announcement-content-down-rate">
+                                        <div class="announcement-prize">
+                                            <span class="announcement-prize-number">@item.Cost</span>
+                                            <span class="announcement-prize-currency">zł</span>
+                                        </div>
+                                        <h1 class="announcement-time">za 60 minut</h1>
+                                    </div>
+                                    <button @*@onclick="() => OnSelected(item, user)"*@ class="announcement-content-down-button" @*href="/ProfilPanel"*@>Umów teraz</button>
                                 </div>
-                                <button onclick="OnSelected(@item, @user)" class="announcement-content-down-button" href="/ProfilPanel">Umów teraz</button>
+                            </div>
+                            <div class="announcement-statistics">
+                                <div class="image-container">
+                                    <img src="images/heart.png" class="announcement-user-heart-img"/>
+                                    <h1 class="announcement-user-hearts">@user.AccountStatistics?.OwnerRating</h1>
+                                </div>
+                                <div class="image-container">
+                                    <img src="images/material.png" class="announcement-user-material-img"/>
+                                    <h1 class="announcement-user-materials">@user.AccountStatistics?.TotalMaterialsCount</h1>
+                                </div>
                             </div>
                         </div>
-                        <div class="announcement-statistics">
-                            <div class="image-container">
-                                <img src="images/heart.png" class="announcement-user-heart-img"/>
-                                <h1 class="announcement-user-hearts">@user.AccountStatistics.OwnerRating</h1>
-                            </div>
-                            <div class="image-container">
-                                <img src="images/material.png" class="announcement-user-material-img"/>
-                                <h1 class="announcement-user-materials">@user.AccountStatistics.TotalMaterialsCount</h1>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 }
             }
-        </div> 
+
+        </div>
     </div>
 </selection>
 
 <selection class="second-container">
-    <img src="images/second-top-line.png" class="second-top-line" />
+    <img src="images/second-top-line.png" class="second-top-line"/>
     <div class="second-content">
         <h1 class="second-title">CHCESZ SIĘ CZEGOŚ NAUCZYĆ?</h1>
-        <h2 class="second-subtitle">ODWIEDŹ NASZĄ DARMOWĄ <button class="button" >BAZĘ ZADAŃ </button> I <button class="button"> MATERIAŁÓW DYDAKTYCZNYCH </button></h2>
+        <h2 class="second-subtitle">ODWIEDŹ NASZĄ DARMOWĄ <button class="button">BAZĘ ZADAŃ </button> I <button class="button"> MATERIAŁÓW DYDAKTYCZNYCH </button></h2>
     </div>
-    <img src="images/second-bottom-line.png" class="second-bottom-line" />
+    <img src="images/second-bottom-line.png" class="second-bottom-line"/>
 </selection>
 
 <div class="third-background"></div>
 <selection class="third-container">
     <div class="third-content">
         <h1 class="third-title">DAJESZ KORKI?</h1>
-        <h2 class="third-subtitle"><button class="button">DOŁĄCZ DO NAS</button></h2>
+        <h2 class="third-subtitle">
+            <button class="button">DOŁĄCZ DO NAS</button>
+        </h2>
     </div>
     <div class="help-content">
         <h3 class="help-title">POMOC</h3>
@@ -131,18 +142,21 @@
     <h3 class="copyright">©Corgi</h3>
 </selection>
 
-<ProfilPanel ProfilDto="ProfilDto"/>
+@* <ProfilPanel ProfilDto="ProfilDto"/> *@
 
 @code {
 
     private IEnumerable<Advert>? _advertsQuery;
 
     private ProfilPanelDto ProfilDto { get; set; } = new();
-    
-    protected override void OnInitialized() {
+
+    protected override async Task OnInitializedAsync() {
         var context = new HttpClient();
-        _advertsQuery = context.GetFromJsonAsync<IEnumerable<Advert>>("https://localhost:44329/api/v1/Advert")
-            .Result;
+        _advertsQuery = await context.GetFromJsonAsync<IEnumerable<Advert>?>("http://localhost:5121/api/v1/Advert");
+    }
+
+    private void OnSelected() {
+        
     }
 
 

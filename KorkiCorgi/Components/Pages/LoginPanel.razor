@@ -1,6 +1,7 @@
 @page "/LoginPanel"
 @using KorkiCorgi.DataTransferObjects
 @using KorkiCorgi.Models.Enums
+
 @inject NavigationManager Navigation
 @inject ILogger<LoginPanel> Logger
 
@@ -64,15 +65,21 @@
 
     private async Task OnUserLogin() {
         var context = new HttpClient();
+        _userDto.AccountType = AccountType.User;
+        
+        Console.WriteLine(_userDto.Email);
+        Console.WriteLine(_userDto.Password);
 
         try {
             var response = await context.PostAsJsonAsync("http://localhost:5121/api/v1/Account/LoginToAccount", _userDto);
             if (response.IsSuccessStatusCode) {
                 Navigation.NavigateTo("/");
-            } else {
+            }
+            else {
                 Logger.LogInformation("Nie udało się zalogować.");
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.LogError(ex, "An error occurred during login.");
         }
     }

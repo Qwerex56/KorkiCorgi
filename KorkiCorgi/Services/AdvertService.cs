@@ -18,9 +18,7 @@ public class AdvertService : IAdvertService {
     }
 
     public IEnumerable<Advert> GetAllAdverts() {
-        var adverts = _context.Adverts.Where(adverts => true);
-        
-        return adverts;
+        return _context.Adverts;
     }
 
     public async Task<IEnumerable<Advert>> GetALlAdvertsAsync() {

@@ -40,7 +40,6 @@ public class AccountService : IAccountService {
             return false;
         }
         
-        Console.WriteLine("Can login");
         return user.Password == userDto.Password;
     }
 

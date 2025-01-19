@@ -18,6 +18,8 @@ builder.Services.AddDbContext<CorgiDbContext>(options => options.UseNpgsql(
 
 builder.Services.AddScoped<IUserFactory, UserFactory>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAdvertService, AdvertService>();
+builder.Services.AddScoped<ICalendarService, CalendarService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

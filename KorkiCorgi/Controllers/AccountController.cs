@@ -33,21 +33,19 @@ public class AccountController : Controller {
         return Ok(result);
     }
     
-    [HttpGet(template: nameof(LoginToAccount), Name = nameof(LoginToAccount))]    
+    [HttpPost(template: nameof(LoginToAccount))]    
     public IActionResult LoginToAccount([FromBody] UserDto userDto) {
         if (!ModelState.IsValid) {
-            Console.WriteLine("bad dto");
             return BadRequest(userDto);
         }
 
         if (_accountService.LoginAccount(userDto)) {
-            Console.WriteLine("Will log in");
-            
             HttpContext.Response.Cookies.Append("user", userDto.Email, new CookieOptions{
                 Expires = DateTime.UtcNow.AddDays(7),
                 IsEssential = true,
             });
             
+            Console.WriteLine("Dodaj cookie");
             return Ok("User logged in.");
         }
         
@@ -56,14 +54,13 @@ public class AccountController : Controller {
         return BadRequest("Invalid password or username.");
     }
     
-    [HttpGet("/GetLoginState")]
+    [HttpGet(template: "/GetLoginState")]
     public IActionResult GetLoginState() {
         if (!HttpContext.Request.Cookies.TryGetValue("user", out var user)) {
             return NotFound("No user login state found.");
         }
         
-        var userDto = JsonSerializer.Deserialize<string>(user);
-        return Ok(userDto);
+        return Ok(user);
     }
 
     [HttpGet(template: "/GetAccount/{email}", Name = nameof(GetAccount))]

@@ -15,5 +15,5 @@ public class Advert {
     
     
     
-    public int UserId { get; init; }
+    public int UserId { get; set; }
 }

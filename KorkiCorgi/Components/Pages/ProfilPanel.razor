@@ -103,8 +103,5 @@
 </selection>
 
 @code {
-    [EditorRequired]
-    [Parameter]
-    public required ProfilPanelDto ProfilDto { get; set; }
-    
+    [EditorRequired] [Parameter] public required ProfilPanelDto ProfilDto { get; set; } = new();
 }
