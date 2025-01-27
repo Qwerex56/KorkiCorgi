@@ -34,12 +34,12 @@ public class AccountService : IAccountService {
 
     public bool LoginAccount(UserDto userDto) {
         var user = _context.Users.FirstOrDefault(u => u.Email == userDto.Email);
-
+        
         if (user is null) {
             // User doesnt exists
             return false;
         }
-
+        
         return user.Password == userDto.Password;
     }
 

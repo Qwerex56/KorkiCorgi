@@ -5,12 +5,48 @@
 <nav class="top-navigation">
     <img src="images/nav_background.png" class="nav-background"/>
     <ul class="nav-content">
-        <a href="/"><img href="/Home" src="images/logo.png" class="logo" /></a>
-        <a href="/LoginPanel"><li class="nav-link">ZALOGUJ SIĘ</li></a>
-        <a href="/RegisterPanel"><li class="nav-link">REJESTRACJA</li></a>
-        <a href="/Materials"><li class="nav-link">MATERIAŁY</li></a>
+        <a href="/" @onclick="OnClick">
+            <img href="/Home" src="images/logo.png" class="logo"/>
+        </a>
+
+        @if (_isLoggedIn) {
+            <a href="/ProfilePanel" @onclick="OnClick">
+                <li class="nav-link">KONTO</li>
+            </a>
+        }
+        else {
+            <a href="/LoginPanel" @onclick="OnClick">
+                <li class="nav-link">ZALOGUJ SIĘ</li>
+            </a>
+            <a href="/RegisterPanel" @onclick="OnClick">
+                <li class="nav-link">REJESTRACJA</li>
+            </a>
+        }
+
+        <a href="/Materials" @onclick="OnClick">
+            <li class="nav-link">MATERIAŁY</li>
+        </a>
     </ul>
 </nav>
 
+@code {
 
+    private bool _isLoggedIn = false;
 
+    protected override async Task OnInitializedAsync() {
+        var context = new HttpClient();
+        var userLoggedResult = await context.GetAsync("http://localhost:5121/api/v1/Account/GetLoginState");
+
+        _isLoggedIn = userLoggedResult.IsSuccessStatusCode;
+        
+        await base.OnInitializedAsync();
+    }
+
+    private async void OnClick() {
+        var context = new HttpClient();
+        var userLoggedResult = await context.GetAsync("http://localhost:5121/api/v1/Account/GetLoginState");
+
+        _isLoggedIn = userLoggedResult.IsSuccessStatusCode;
+    }
+
+}

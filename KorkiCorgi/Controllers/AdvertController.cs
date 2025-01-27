@@ -55,4 +55,15 @@ public class AdvertController : Controller {
         var result = _advertService.DeleteAdvert(id);
         return result ? Ok() : BadRequest();
     }
+
+    [HttpPost(template: nameof(CreateAdvert), Name = nameof(CreateAdvert))]
+    public IActionResult CreateAdvert([FromBody] Advert advert) {
+        var added = _advertService.CreateAdvert(advert);
+
+        if (added) {
+            return Ok();
+        }
+
+        return BadRequest();
+    }
 }

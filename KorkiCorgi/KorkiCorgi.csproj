@@ -24,11 +24,4 @@
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Areas\CalendarController]\Controllers\" />
-      <Folder Include="Areas\CalendarController]\Data\" />
-      <Folder Include="Areas\CalendarController]\Models\" />
-      <Folder Include="Areas\CalendarController]\Views\" />
-    </ItemGroup>
-
 </Project>

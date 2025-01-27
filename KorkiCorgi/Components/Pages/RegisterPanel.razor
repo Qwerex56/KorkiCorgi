@@ -2,6 +2,9 @@
 @using KorkiCorgi.DataTransferObjects
 @using KorkiCorgi.Models.Enums
 
+@* @inject Logger<RegisterPanel> Logger *@
+@inject NavigationManager NavigationManager
+
 @rendermode InteractiveServer
 
 <PageTitle>Corgi</PageTitle>
@@ -16,17 +19,24 @@
         <div class="main-register-panel">
 
             <h1 class="main-title">REJESTRACJA</h1>
+
+            @if (!_succesAtRegister) {
+                <div>
+                    <p>Nie poprawne dane</p>
+                </div>
+            }
+
             <div class="main-register-cell">
                 <label for="subject-search" class="visually-hidden">
                     email
                 </label>
-                <input value="@_userDto.Email" @onchange="@(e => _userDto.Email = e.Value?.ToString() ?? string.Empty)" 
-                    type="search" id="subject-search" class="main-search" placeholder="email"/>
+                <input value="@_userDto.Email" @onchange="@(e => _userDto.Email = e.Value?.ToString() ?? string.Empty)"
+                       type="search" id="subject-search" class="main-search" placeholder="email"/>
             </div>
             <div class="main-register-cell">
                 <label for="subject-search" class="visually-hidden">hasło</label>
                 <input value="@_userDto.Password" @onchange="@(e => _userDto.Password = e.Value?.ToString() ?? string.Empty)"
-                    type="search" id="subject-search" class="main-search" placeholder="hasło"/>
+                       type="search" id="subject-search" class="main-search" placeholder="hasło"/>
             </div>
             <div class="main-register-cell">
                 <label for="subject-search" class="visually-hidden">imię</label>
@@ -49,7 +59,7 @@
                        type="radio" id="teacher" name="toggle" class="toggle-input">
                 <label for="teacher" class="choice-button">Nauczyciel</label>
             </div>
-
+            
             <button @onclick="OnUserRegister" class="register-button">Zarejestruj</button>
 
         </div>
@@ -83,11 +93,35 @@
 
 @code {
 
+    private bool _succesAtRegister = true;
     private UserDto _userDto = new();
 
-    private void OnUserRegister() {
+    private async Task OnUserRegister() {
         var context = new HttpClient();
-        context.PostAsJsonAsync("http://localhost:5121/api/v1/Account", _userDto);
+
+        try {
+            var postResult = await context.PostAsJsonAsync("http://localhost:5121/api/v1/Account/CreateAccount", _userDto);
+            
+            if (!postResult.IsSuccessStatusCode) {
+                _succesAtRegister = false;
+                return;
+            }
+
+            Console.WriteLine("Return");
+            
+            var loginResult = await context.PostAsJsonAsync("http://localhost:5121/api/v1/Account/LoginToAccount", _userDto);
+
+            if (!loginResult.IsSuccessStatusCode) {
+                NavigationManager.NavigateTo("http://localhost:5121/");
+                return;
+            }
+            
+            NavigationManager.NavigateTo("http://localhost:5121/");
+        }
+        catch (Exception e) {
+            // Logger.LogError("Error occurred while registering account.");
+            Console.WriteLine("Error XD");
+        }
     }
 
 }
