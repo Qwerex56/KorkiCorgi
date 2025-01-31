@@ -160,6 +160,7 @@
     private IEnumerable<Advert>? _advertsQuery;
     private SearchFilterDto SearchFilters { get; set; } = new();
     private string? _queryString;
+    private bool isInitialized = false;
 
     private ProfilPanelDto ProfilDto { get; set; } = new();
 
@@ -172,6 +173,7 @@
                 .ToString();
             _advertsQuery = await context.GetFromJsonAsync<IEnumerable<Advert>?>(requestUri);
             StateHasChanged();
+            isInitialized = true;
         }
     }
 
