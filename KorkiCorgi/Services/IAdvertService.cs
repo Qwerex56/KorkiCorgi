@@ -1,4 +1,5 @@
-﻿using KorkiCorgi.Models;
+﻿using KorkiCorgi.DataTransferObjects;
+using KorkiCorgi.Models;
 
 namespace KorkiCorgi.Services;
 
@@ -10,6 +11,8 @@ public interface IAdvertService {
 
     public IEnumerable<Advert> GetAllUserAdverts(int userId);
     public Task<IEnumerable<Advert>> GetAllUserAdvertsAsync(int userId);
+    public IEnumerable<Advert> GetAdvertsBasedOnSearch(SearchFilterDto searchFilterDto);
+    public Task<IEnumerable<Advert>> GetAdvertsBasedOnSearchAsync(SearchFilterDto searchFilterDto);
 
     public bool DeleteAdvert(int id);
     public Task<bool> DeleteAdvertAsync(int id);

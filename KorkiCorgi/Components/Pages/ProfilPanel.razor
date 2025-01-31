@@ -1,9 +1,10 @@
-@page "/ProfilPanel"
+@page "/ProfilPanel/{Id}"
 @using KorkiCorgi.DataTransferObjects
-@using KorkiCorgi.Models
-@using KorkiCorgi.Services
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
-@inject ProfilPanelDtoService ProfilPanelDtoService
+@rendermode InteractiveServer
+
+@inject ProtectedLocalStorage ProtectedLocalStorage
 
 <PageTitle>Corgi</PageTitle>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,11 +82,17 @@
 </selection>
 
 @code {
-    //TODO - Poszukać lepszej implementacji, szczególnie, że fajnie by rozróżniać do kogo należy dane ogłoszenie.
-    //TODO - I ogólnie to się takie kiczowe wydaje, ale jest placeholder, który działa chociaż.
-    //Jakby z głowy to albo przekazywać id adverta i znowu zapytanie robić tutaj, albo zrobić local storage. Więcej opcji nie znam obecnie.
+    [Parameter] public required string Id { get; set; }
+    
     private ProfilPanelDto ProfilDto { get; set; } = new();
-    protected override void OnInitialized() {
-        ProfilDto = Services.ProfilPanelDtoService.ProfilDto;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var result = await ProtectedLocalStorage.GetAsync<ProfilPanelDto>(Id);
+            ProfilDto = result.Success ? result.Value! : new ProfilPanelDto();
+            StateHasChanged();
+        }
     }
 }

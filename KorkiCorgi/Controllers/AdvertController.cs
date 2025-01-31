@@ -1,6 +1,8 @@
-﻿using KorkiCorgi.Models;
+﻿using KorkiCorgi.DataTransferObjects;
+using KorkiCorgi.Models;
 using KorkiCorgi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace KorkiCorgi.Controllers;
 
@@ -42,6 +44,12 @@ public class AdvertController : Controller {
     [HttpGet(nameof(GetUserAdverts) + "/{userId:int}", Name = nameof(GetUserAdverts))]
     public ActionResult<IEnumerable<Advert>> GetUserAdverts(int userId) {
         return Ok((_advertService.GetAllUserAdverts(userId)));
+    }
+    [HttpGet(nameof(GetAdvertsByFilters), Name = nameof(GetAdvertsByFilters))]
+    public ActionResult<IEnumerable<Advert>> GetAdvertsByFilters([FromQuery] SearchFilterDto searchFilterDto) {
+        var result = _advertService.GetAdvertsBasedOnSearch(searchFilterDto);
+
+        return Ok(result);
     }
 
     [HttpDelete(nameof(DeleteAdvert) + "/{id:int}", Name = nameof(DeleteAdvert))]

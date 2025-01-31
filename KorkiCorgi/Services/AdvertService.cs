@@ -1,4 +1,6 @@
-﻿using KorkiCorgi.Models;
+﻿using KorkiCorgi.DataTransferObjects;
+using KorkiCorgi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KorkiCorgi.Services;
 
@@ -18,7 +20,7 @@ public class AdvertService : IAdvertService {
     }
 
     public IEnumerable<Advert> GetAllAdverts() {
-        return _context.Adverts;
+        return _context.Adverts.AsNoTracking();
     }
 
     public async Task<IEnumerable<Advert>> GetALlAdvertsAsync() {
@@ -32,6 +34,38 @@ public class AdvertService : IAdvertService {
     }
 
     public async Task<IEnumerable<Advert>> GetAllUserAdvertsAsync(int userId) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Advert> GetAdvertsBasedOnSearch(SearchFilterDto searchFilterDto) {
+        var result = _context.Adverts.AsNoTracking();
+
+        if (searchFilterDto.Title is not null) {
+            result = result.Where(ad => ad.Title.Contains(searchFilterDto.Title));
+        }
+
+        if (searchFilterDto.City is not null) {
+            Console.WriteLine("Not implemented");
+            // result = result.Where(ad => ad.)
+        }
+
+        if (searchFilterDto.IsOnline is not null) {
+            Console.WriteLine("Not ideal");
+            // result = result.Where(ad => ad.IsOnline == searchFilterDto.IsOnline);
+        }
+
+        if (searchFilterDto.CostMin is not null) {
+            result = result.Where(ad => ad.Cost >= searchFilterDto.CostMin);
+        }
+
+        if (searchFilterDto.CostMax is not null) {
+            result = result.Where(ad => ad.Cost <= searchFilterDto.CostMax);
+        }
+
+        return result;
+    }
+
+    public Task<IEnumerable<Advert>> GetAdvertsBasedOnSearchAsync(SearchFilterDto searchFilterDto) {
         throw new NotImplementedException();
     }
 

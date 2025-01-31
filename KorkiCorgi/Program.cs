@@ -1,3 +1,4 @@
+using KorkiCorgi;
 using KorkiCorgi.Components;
 using KorkiCorgi.Models;
 using KorkiCorgi.Models.ModelFactory;
@@ -20,7 +21,6 @@ builder.Services.AddScoped<IUserFactory, UserFactory>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAdvertService, AdvertService>();
 builder.Services.AddScoped<ICalendarService, CalendarService>();
-builder.Services.AddScoped<ProfilPanelDtoService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

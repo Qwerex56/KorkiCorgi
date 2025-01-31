@@ -1,11 +1,17 @@
+
 @page "/AnnouncementList"
+
+@using System.Text
 @using KorkiCorgi.DataTransferObjects
 @using KorkiCorgi.Models
 @using KorkiCorgi.Services
-@inject IAccountService AccountService
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
 @rendermode InteractiveServer
+
+@inject IAccountService AccountService
 @inject NavigationManager NavigationManager
+@inject ProtectedLocalStorage ProtectedLocalStorage
 @* AnnouncementList *@
 
 <PageTitle>Corgi/ListaOgloszen</PageTitle>
@@ -14,21 +20,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Itim&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nova+Mono&display=swap" rel="stylesheet">
 
 <selection class="main-container">
-    @* <img src="images/background1.png" class="main-background-image1 parallax" speed="0.6"/>
-    <img src="images/background2.png" class="main-background-image2 parallax" speed="0.7" />  
-    <img src="images/background3.png" class="main-background-image3 parallax" speed="0.4"/>
-    <img src="images/background4.png" class="main-background-image4 parallax" speed="0.3" />   *@
-
     <div class="main-filters">
 
         <h1 class="main-title">FILTRY</h1>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Nazwa przedmiotu</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Nazwa przedmiotu"/>
+            <input type="search" id="subject-search" class="main-search" placeholder="Nazwa przedmiotu" value="@SearchFilters.Title"
+                   @onchange="@(async e => 
+                        { SearchFilters.Title = e.Value?.ToString(); await OnApply();})"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Miasto</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Miasto"/>
+            <input type="search" id="subject-search" class="main-search" placeholder="Miasto" value="@SearchFilters.City"
+                   @onchange="@(async e => 
+                        { SearchFilters.City = e.Value?.ToString(); await OnApply();})"/>
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Przedmiot</label>
@@ -40,14 +45,20 @@
         </div>
         <div class="main-filters-filter">
             <label for="subject-search" class="visually-hidden">Rodzaj lekcji</label>
-            <input type="search" id="subject-search" class="main-search" placeholder="Rodzaj lekcji"/>
+            <input type="search" id="subject-search" class="main-search" placeholder="Rodzaj lekcji" value="@SearchFilters.IsOnline"
+                   @onchange="@(async e => { SearchFilters.IsOnline = e.Value?.ToString() == "Tak"; await OnApply();})"/>
+            @* mocny placeholder *@
         </div>
 
         <div class="main-filters-filter-cost">
             <div class="cost-label">cena</div>
             <div class="cost-inputs">
-                <input type="number" class="cost-input" placeholder="od" min="0">
-                <input type="number" class="cost-input" placeholder="do" min="0">
+                <input type="number" class="cost-input" placeholder="od" min="0" value="@SearchFilters.CostMin"
+                       @onchange="@(async e => { if (e.Value!.ToString() == string.Empty) { SearchFilters.CostMin = null; await OnApply(); return; } 
+                            SearchFilters.CostMin = int.Parse(e.Value?.ToString()); await OnApply(); })">
+                <input type="number" class="cost-input" placeholder="do" min="0" value="@SearchFilters.CostMax"
+                       @onchange="@(async e => { if (e.Value!.ToString() == string.Empty) { SearchFilters.CostMax = null; await OnApply(); return;}
+                            SearchFilters.CostMax = int.Parse(e.Value?.ToString()); await OnApply();})">
             </div>
         </div>
 
@@ -62,7 +73,7 @@
             </div>
             @* pętla wywołująca div'y *@
 
-            @if (_advertsQuery is null) {
+            @if (_advertsQuery is null ) {
                 <div>
                     <p>
                         Brak Wyszukań
@@ -143,17 +154,39 @@
     <h3 class="copyright">©Corgi</h3>
 </selection>
 
-@* <ProfilPanel ProfilDto="ProfilDto"/> *@
-
 @code {
-
+    //OnInitialized sprawia, że mamy czas oczekiwania OnAfterRender renderuje najpierw stronę, później dodaje dane
+    //Przy okazji Leon to 🤡, Frontend nie jest wgl zdebugowany xD
     private IEnumerable<Advert>? _advertsQuery;
+    private SearchFilterDto SearchFilters { get; set; } = new();
+    private string? _queryString;
 
     private ProfilPanelDto ProfilDto { get; set; } = new();
 
-    protected override async Task OnInitializedAsync() {
-        var context = new HttpClient();
-        _advertsQuery = await context.GetFromJsonAsync<IEnumerable<Advert>?>("http://localhost:5121/api/v1/Advert");
+    //TODO - Napisać to lepiej i wybrać jedną wersję
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            var context = new HttpClient();
+            var requestUri = new StringBuilder("http://localhost:5121/api/v1/Advert/GetAdvertsByFilters")
+                .Append(_queryString)
+                .ToString();
+            _advertsQuery = await context.GetFromJsonAsync<IEnumerable<Advert>?>(requestUri);
+            StateHasChanged();
+        }
+    }
+
+    // protected override async Task OnInitializedAsync() {
+    //     var context = new HttpClient();
+    //     var requestUri = new StringBuilder("http://localhost:5121/api/v1/Advert/GetAdvertsByFilters")
+    //         .Append(_queryString)
+    //         .ToString();
+    //     _advertsQuery = await context.GetFromJsonAsync<IEnumerable<Advert>?>(requestUri);
+    // }
+
+    private async Task OnApply() {
+         _queryString = SearchFilters.BuildQueryString();
+         await OnAfterRenderAsync(true);
+         // await OnInitializedAsync();
     }
 
     private void OnSelected(Advert advert, User user) {
@@ -164,7 +197,7 @@
         ProfilDto.Cost = advert.Cost;
         ProfilDto.IsOnline = advert.IsOnline;
         ProfilDto.MeetingPlace = advert.MeetingPlace;
-        ProfilPanelDtoService.ProfilDto = ProfilDto;
-        NavigationManager.NavigateTo($"http://localhost:5121/ProfilPanel");
+        ProtectedLocalStorage.SetAsync(advert.Id.ToString(), ProfilDto);
+        NavigationManager.NavigateTo($"http://localhost:5121/ProfilPanel/{advert.Id.ToString()}");
     }
 }
